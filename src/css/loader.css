@@ -1,4 +1,8 @@
-.is-hidden { display: none; }
+/* Вместо общей .is-hidden — делаем специфичные правила */
+#load-more.is-hidden { display: none; }
+.loader.is-hidden { display: none; }
+
+/* остальное можно оставить как есть */
 .gallery {
   display: grid;
   gap: 16px;
@@ -8,4 +12,4 @@
 }
 .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
 #load-more { margin: 16px auto; display: block; padding: 10px 16px; }
-.loader { display:block; margin: 8px auto 24px; }
+.loader { display: block; margin: 8px auto 24px; }

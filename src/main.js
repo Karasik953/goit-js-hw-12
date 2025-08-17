@@ -1,4 +1,5 @@
-import { getImagesByQuery, PER_PAGE } from "./js/pixabay-api.js";
+
+import { getImagesByQuery } from "./js/pixabay-api.js";      
 import {
   createGallery,
   clearGallery,
@@ -9,7 +10,9 @@ import {
   smoothScrollAfterAppend,
   showNoResultsMessage,
   showEndMessage,
-} from "./js/render-functions.js";
+  showErrorMessage,
+} from "./js/render-functions.js";                          
+
 
 const form = document.querySelector(".form");
 const input = form.querySelector('input[name="search-text"]');
@@ -27,7 +30,6 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const value = input.value.trim();
   if (!value) return;
-
 
   query = value;
   page = 1;
@@ -53,7 +55,6 @@ async function fetchAndRender(isLoadMore = false) {
     const { hits = [], totalHits: total = 0 } = await getImagesByQuery(query, page);
     totalHits = total;
 
-
     if (!isLoadMore && hits.length === 0) {
       hideLoadMoreButton();
       showNoResultsMessage();
@@ -70,11 +71,10 @@ async function fetchAndRender(isLoadMore = false) {
       if (loaded > 0) showEndMessage();
     }
 
-
     if (isLoadMore) smoothScrollAfterAppend();
   } catch (err) {
-
     hideLoadMoreButton();
+    showErrorMessage(err?.message || "Network error");
   } finally {
     hideLoader();
     isLoading = false;

@@ -12,7 +12,6 @@ const lightbox = new SimpleLightbox(".gallery a", {
   captionDelay: 250,
 });
 
-
 export function createGallery(images) {
   const markup = images
     .map(
@@ -53,14 +52,12 @@ export function hideLoadMoreButton() {
   loadMoreBtn.classList.add("is-hidden");
 }
 
-
 export function smoothScrollAfterAppend() {
   const firstCard = document.querySelector(".gallery .card");
   if (!firstCard) return;
   const { height } = firstCard.getBoundingClientRect();
   window.scrollBy({ top: height * 2, behavior: "smooth" });
 }
-
 
 export function showNoResultsMessage() {
   iziToast.error({
@@ -70,11 +67,18 @@ export function showNoResultsMessage() {
   });
 }
 
-
 export function showEndMessage() {
   iziToast.info({
     position: "topRight",
     title: "Info",
     message: "We're sorry, but you've reached the end of search results.",
+  });
+}
+
+export function showErrorMessage(message = "Something went wrong. Please try again.") {
+  iziToast.error({
+    position: "topRight",
+    title: "Error",
+    message,
   });
 }
